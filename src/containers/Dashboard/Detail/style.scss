@@ -1,0 +1,20 @@
+#Detail {
+    .command-list{
+        padding: 1rem;
+
+        input {
+            border-radius: 1rem;
+        }
+    }
+
+    .message-log {
+        background-color: #fff;
+        min-height: 100vh;
+    }
+
+    .card {
+        padding: 1.25rem;
+        margin: .25rem 0;
+        transition: 0.2s;
+    }
+}

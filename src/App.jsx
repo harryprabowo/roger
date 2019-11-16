@@ -46,7 +46,7 @@ const App = () => {
             </NavLink>
           </ul>
         </nav>
-        <div id="contents">
+        <div id="contents" className="overflow-auto">
           <Switch>
             <Route exact path="/" component={withRouter(Dashboard)} />
             <Route exact path="*" component={withRouter(NotFound)} />
