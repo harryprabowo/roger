@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import { Tab, Row, Col, Nav, Image } from "react-bootstrap";
+import { Tab, Row, Col, Nav, Image, Button } from "react-bootstrap";
 
 import Detail from "./Detail";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCircle, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 import "./style.scss";
 
@@ -39,10 +39,20 @@ const Dashboard = () => {
       <Row>
         <Tab.Container id="left-tabs">
           <Col sm={3} className="left">
-            <header>
-              <h4 style={{ padding: "0 1rem" }}>
+            <header style={{ padding: "0 1rem" }}>
+              <h4 style={{margin: 0}}>
                 <strong>ROGER</strong>
+                <Button variant="link">
+                  <FontAwesomeIcon
+                    icon={faCaretDown}
+                    style={{ verticalAlign: "text-top", color: "white", fontSize: '14pt', opacity: 0.8 }}
+                  />
+                </Button>
               </h4>
+              <span style={{fontSize: '10pt'}}>
+                  <FontAwesomeIcon icon={faCircle} style={{color:'green'}} size="sm"/>
+                  <label style={{marginLeft: '1rem', opacity: 0.8}}>BUSINESS HOURS</label>
+              </span>
             </header>
             <hr />
             <Nav variant="pills" className="flex-column">
@@ -57,7 +67,13 @@ const Dashboard = () => {
                         {proj.name}
                       </Col>
                       <Col xs={2} style={{ textAlign: "center" }}>
-                        {proj.new ? <FontAwesomeIcon icon={faCircle} size="sm" style={{color: 'red'}}/> : null}
+                        {proj.new ? (
+                          <FontAwesomeIcon
+                            icon={faCircle}
+                            size="sm"
+                            style={{ color: "red" }}
+                          />
+                        ) : null}
                       </Col>
                     </Row>
                   </Nav.Link>

@@ -38,19 +38,24 @@ const CommandCard = props => {
         <Col>
           <strong>{cmd.title}</strong>
           <Button size="sm" variant="link">
-            <FontAwesomeIcon icon={faCog} style={{color: 'grey'}}/>
+            <FontAwesomeIcon icon={faCog} style={{ color: "grey" }} />
           </Button>
         </Col>
         <Col
           xs={1}
-          style={{ color: "lightgrey" }}
           onClick={() => setOpen(!open)}
-          style={{cursor: 'pointer'}}
+          style={{ color: "lightgrey", cursor: "pointer" }}
         >
           {open ? (
-            <FontAwesomeIcon icon={faChevronUp} />
+            <FontAwesomeIcon
+              icon={faChevronUp}
+              style={{ verticalAlign: "middle" }}
+            />
           ) : (
-            <FontAwesomeIcon icon={faChevronDown} />
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              style={{ verticalAlign: "middle" }}
+            />
           )}
         </Col>
       </Row>
