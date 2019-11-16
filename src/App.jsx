@@ -1,26 +1,60 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.scss';
+import React from "react";
 
-function App() {
+import {
+  BrowserRouter as Router,
+  withRouter,
+  Route,
+  Switch,
+  NavLink
+} from "react-router-dom";
+
+import { Dashboard } from "./containers";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faPuzzlePiece,
+  faCogs
+} from "@fortawesome/free-solid-svg-icons";
+
+import "./App.scss";
+
+const NotFound = () => {
+  return <span>Error 404 | Not Found</span>;
+};
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="App">
+      <Router>
+        <nav>
+          <ul className="list-unstyled">
+            <NavLink activeClassName="active" exact to="/">
+              <li>
+                <FontAwesomeIcon icon={faHome} size="lg" />
+              </li>
+            </NavLink>
+            <NavLink activeClassName="active" to="/plugins">
+              <li>
+                <FontAwesomeIcon icon={faPuzzlePiece} size="lg" />
+              </li>
+            </NavLink>
+            <NavLink activeClassName="active" to="/settings">
+              <li>
+                <FontAwesomeIcon icon={faCogs} size="lg" />
+              </li>
+            </NavLink>
+          </ul>
+        </nav>
+        <div id="contents">
+          <Switch>
+            <Route exact path="/" component={withRouter(Dashboard)} />
+            <Route exact path="*" component={withRouter(NotFound)} />
+          </Switch>
+        </div>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
