@@ -107,6 +107,7 @@ const Chat = props => {
         <div className="chat-bubble">
             <Row>
                 <Col>
+                    <label style={{fontSize: '9pt', color: 'grey'}}><strong>{chat.category.toUpperCase()}</strong></label><br/>
                     {chat.message}
                 </Col>
                 <Col xs={3} style={{alignSelf: 'flex-end'}}>
@@ -134,27 +135,19 @@ const Detail = props => {
     }
   );
 
-
-
-  setInterval(() => {
-    setChats(chatRes);
-    console.log('asdfa')
-    
-  }, [1000]);
-
   return (
     <div id="Detail">
       <Row>
         <Col className="command-list" style={{ padding: "1rem 0" }}>
           <Row>
-            <Col style={{ paddingLeft: '1rem' }}>
+            <Col style={{ paddingLeft: "1rem" }}>
               <Form>
                 <FormControl type="text" placeholder="Search" />
               </Form>
             </Col>
-            <Col xs={3} style={{ paddingRight: '2rem' }}>
-              <Button variant="light" style={{borderColor: 'grey'}} block>
-                <FontAwesomeIcon icon={faPlus}/> Command
+            <Col xs={3} style={{ paddingRight: "2rem" }}>
+              <Button variant="light" style={{ borderColor: "grey" }} block>
+                <FontAwesomeIcon icon={faPlus} /> Command
               </Button>
             </Col>
           </Row>
@@ -169,12 +162,29 @@ const Detail = props => {
           </div>
         </Col>
         <Col md={4} className="chat-log">
+          <header
+            style={{ textAlign: "center", margin: "1rem 0", color: "grey" }}
+          >
+            <strong style={{ color: "#333E50" }}>CHAT LOG</strong>
+          </header>
+          <hr />
           <div className="chats">
-            <header
-              style={{ textAlign: "center", margin: "1rem 0", color: "grey" }}
-            >
-              <strong style={{ color: "grey" }}>CHAT LOG</strong>
-            </header>
+            {chats.map((chat, i) => (
+              <div
+                key={i}
+                className={"chat " + (chat.from_roger ? "chat-roger" : null)}
+              >
+                <Chat chat={chat} />
+              </div>
+            ))}
+            {chats.map((chat, i) => (
+              <div
+                key={i}
+                className={"chat " + (chat.from_roger ? "chat-roger" : null)}
+              >
+                <Chat chat={chat} />
+              </div>
+            ))}
             {chats.map((chat, i) => (
               <div
                 key={i}
