@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Row, Col, Tab, Card, Nav } from "react-bootstrap";
+import { Row, Col, Tab, Card, Nav, Form, FormControl } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -64,6 +64,12 @@ const Extensions = () => {
             </Nav>
           </Col>
           <Col sm={9} className="right">
+            <br/>
+            <Form>
+              <FormControl type="text" placeholder="Search" style={{width: '35rem', marginLeft: '1rem', backgroundColor: 'lightgrey'}}/>
+            </Form>
+            <br/>
+            <hr/>
             <Tab.Content>
               {categories.map((cat, i) => (
                 <Tab.Pane eventKey={cat.id} key={i}>
@@ -78,11 +84,10 @@ const Extensions = () => {
                           margin: "1rem"
                         }}
                       >
-                        <Card.Header>
+                        <Card.Header style={{padding: '4rem'}}>
                           <FontAwesomeIcon icon={faPuzzlePiece} size="2x" />
                         </Card.Header>
                         <Card.Body>
-                          <Card.Title></Card.Title>
                           <Card.Text>{ext}</Card.Text>
                         </Card.Body>
                       </Card>
