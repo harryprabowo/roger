@@ -8,11 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronUp,
   faChevronDown,
-  faCog,
   faPlus,
   faArrowLeft,
   faAmbulance,
-  faBell,
+  faTasks,
   faEdit
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -30,7 +29,7 @@ const commands = [
     {
       name: "report",
       title: "Progress Report",
-      icon: faBell,
+      icon: faTasks,
       list: []
     }
   ]
@@ -206,7 +205,7 @@ const Detail = props => {
                 <Col>
                   <strong style={{ color: "#333E50" }}>
                     {isNullOrUndefined(selectedCategory)
-                      ? "CHAT HISTORY"
+                      ? "LOG"
                       : selectedCategory.toUpperCase()}
                   </strong>
                 </Col>
