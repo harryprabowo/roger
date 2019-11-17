@@ -18,6 +18,7 @@ import {
 
 import { isNullOrUndefined } from "util";
 
+const apiURL = 'http://localhost:5000/api/chats';
 const commands = [
   [
     {
@@ -84,8 +85,8 @@ const CommandCard = props => {
         </Col>
         <Col>
           <strong style={{ marginRight: "1rem" }}>{cmd.title}</strong>
-          <Button variant="link" style={{ padding: 0, verticalAlign: 'baseline' }}>
-            <FontAwesomeIcon icon={faEdit} style={{ color: "#aaa" }} size="lg"/>
+          <Button variant="link" style={{ padding: 0, verticalAlign: 'baseline' }} onClick={() => console.log('asdads')}>
+            <FontAwesomeIcon icon={faEdit} style={{ color: "#aaa" }} size="lg" />
           </Button>
         </Col>
         <Col
@@ -99,11 +100,11 @@ const CommandCard = props => {
               style={{ verticalAlign: "middle" }}
             />
           ) : (
-            <FontAwesomeIcon
-              icon={faChevronDown}
-              style={{ verticalAlign: "middle" }}
-            />
-          )}
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                style={{ verticalAlign: "middle" }}
+              />
+            )}
         </Col>
       </Row>
       {open ? (
@@ -148,15 +149,21 @@ const Detail = props => {
   const [chats, setChats] = useState([]);
   const [selectedCategory, selectCategory] = useState();
 
-  useEffect(() => {
-    let timer1 = setInterval(() => {
-      setChats(chatRes);
-    }, [1000]);
+  useEffect(
+    () => {
+      let timer1 = setInterval(() => {
+        fetch(apiURL)
+          .then((resp) => resp.json())
+          .then(data => {
+            if (data.length !== chats.length)
+              setChats(data);
+          })
+      }, [1000]);
 
-    return () => {
-      clearInterval(timer1);
-    };
-  });
+      return () => {
+        clearInterval(timer1);
+      };
+    });
 
   return (
     <div id="Detail">
@@ -180,12 +187,12 @@ const Detail = props => {
             {isNullOrUndefined(commands[proj.id - 1])
               ? null
               : commands[proj.id - 1].map((cmd, i) => (
-                  <CommandCard
-                    key={i}
-                    cmd={cmd}
-                    selectCategory={selectCategory}
-                  />
-                ))}
+                <CommandCard
+                  key={i}
+                  cmd={cmd}
+                  selectCategory={selectCategory}
+                />
+              ))}
           </div>
         </Col>
         <Col md={4} className="chat-log">
