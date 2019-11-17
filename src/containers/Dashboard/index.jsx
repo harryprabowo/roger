@@ -5,7 +5,11 @@ import { Tab, Row, Col, Nav, Image, Button } from "react-bootstrap";
 import Detail from "./Detail";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle, faCaretDown, faHardHat } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircle,
+  faCaretDown,
+  faHardHat
+} from "@fortawesome/free-solid-svg-icons";
 
 import "./style.scss";
 
@@ -30,11 +34,11 @@ const projects = [
 ];
 
 const Dashboard = () => {
-  const [activeTab, setTab] = useState();
+  const [activeTab, setTab] = useState(1);
   return (
     <div id="Dashboard">
       <Row>
-        <Tab.Container id="left-tabs">
+        <Tab.Container id="left-tabs" defaultActiveKey={1}>
           <Col sm={3} className="left">
             <header style={{ padding: "0 1rem" }}>
               <h4 style={{ margin: 0 }}>
@@ -69,7 +73,10 @@ const Dashboard = () => {
                   <Nav.Link eventKey={proj.id}>
                     <Row>
                       <Col xs={2} style={{ textAlign: "center" }}>
-                        <FontAwesomeIcon icon={faHardHat} style={{color:"#E5B829"}}/>
+                        <FontAwesomeIcon
+                          icon={faHardHat}
+                          style={{ color: "#E5B829" }}
+                        />
                       </Col>
                       <Col style={{ fontWeight: proj.new ? "bold" : "normal" }}>
                         {proj.name}
@@ -93,6 +100,7 @@ const Dashboard = () => {
             <Tab.Content>
               {projects.map((proj, i) => (
                 <Tab.Pane eventKey={proj.id} key={i}>
+                    zxcvasdfalsdfaslkdjfa;jf;wkdjfa;jdf;ajfoeai
                   {proj.id === activeTab ? <Detail proj={proj} /> : null}
                 </Tab.Pane>
               ))}

@@ -1,0 +1,29 @@
+#Extensions {
+    .left, 
+    .right {
+        height: 100vh;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;
+    }
+
+    .left { 
+        background: #333E50;
+        padding: 1.5rem;
+        color: white;
+
+        .nav-item {
+            a {
+                color: white;
+                transition: 0.2s;
+
+                &.nav-link.active{
+                    background-color: #425168;
+                }
+            }
+        }
+    }
+
+    .right {
+        overflow: hidden;
+    }
+}

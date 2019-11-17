@@ -8,7 +8,7 @@ import {
   NavLink
 } from "react-router-dom";
 
-import { Dashboard } from "./containers";
+import { Dashboard, Extensions } from "./containers";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -34,20 +34,20 @@ const App = () => {
                 <FontAwesomeIcon icon={faHome} size="lg" />
               </li>
             </NavLink>
-            <NavLink activeClassName="active" to="/plugins">
+            <NavLink activeClassName="active" to="/extensions">
               <li>
                 <FontAwesomeIcon icon={faPuzzlePiece} size="lg" />
-              </li>
-            </NavLink>
-            <NavLink activeClassName="active" to="/settings">
-              <li>
-                <FontAwesomeIcon icon={faCogs} size="lg" />
               </li>
             </NavLink>
           </ul>
         </nav>
         <div id="contents">
           <Switch>
+            <Route
+              exact
+              path="/extensions"
+              component={withRouter(Extensions)}
+            />
             <Route exact path="/" component={withRouter(Dashboard)} />
             <Route exact path="*" component={withRouter(NotFound)} />
           </Switch>
