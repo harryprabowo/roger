@@ -66,26 +66,28 @@ const Extensions = () => {
           <Col sm={9} className="right">
             <Tab.Content>
               {categories.map((cat, i) => (
-                <Tab.Pane eventKey={cat.id} key={i} style={{ display: "flex" }}>
-                  {cat.extensions.map((ext, j) => (
-                    <Card
-                      key={j}
-                      variant="light"
-                      style={{
-                        width: "10rem",
-                        textAlign: "center",
-                        margin: "1rem"
-                      }}
-                    >
-                      <Card.Header>
-                        <FontAwesomeIcon icon={faPuzzlePiece} size="2x"/>
-                      </Card.Header>
-                      <Card.Body>
-                        <Card.Title></Card.Title>
-                        <Card.Text>{ext}</Card.Text>
-                      </Card.Body>
-                    </Card>
-                  ))}
+                <Tab.Pane eventKey={cat.id} key={i}>
+                  <div style={{ display: "flex" }}>
+                    {cat.extensions.map((ext, j) => (
+                      <Card
+                        key={j}
+                        variant="light"
+                        style={{
+                          width: "10rem",
+                          textAlign: "center",
+                          margin: "1rem"
+                        }}
+                      >
+                        <Card.Header>
+                          <FontAwesomeIcon icon={faPuzzlePiece} size="2x" />
+                        </Card.Header>
+                        <Card.Body>
+                          <Card.Title></Card.Title>
+                          <Card.Text>{ext}</Card.Text>
+                        </Card.Body>
+                      </Card>
+                    ))}
+                  </div>
                 </Tab.Pane>
               ))}
             </Tab.Content>
