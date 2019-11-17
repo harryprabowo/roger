@@ -32,7 +32,8 @@
 
     .card {
         &.card-open {
-            background-color: rgb(228, 228, 228);
+            background-color: rgb(245, 245, 245);
+            margin-bottom: .5rem;
         }
 
         padding: 1.25rem;
@@ -49,7 +50,6 @@
     }
 
     .chats {
-        padding-top: 4rem;
         position: absolute;
         height: 100vh;
         bottom: 0;

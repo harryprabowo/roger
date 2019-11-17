@@ -5,28 +5,25 @@ import { Tab, Row, Col, Nav, Image, Button } from "react-bootstrap";
 import Detail from "./Detail";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faCircle, faCaretDown, faHardHat } from "@fortawesome/free-solid-svg-icons";
 
 import "./style.scss";
 
 const projects = [
   {
     id: 1,
-    imagePath: "a",
     name: "Project 1",
     new: true
   },
 
   {
     id: 2,
-    imagePath: "a",
     name: "Project 2",
     new: false
   },
 
   {
     id: 3,
-    imagePath: "a",
     name: "Project 3",
     new: true
   }
@@ -72,7 +69,7 @@ const Dashboard = () => {
                   <Nav.Link eventKey={proj.id}>
                     <Row>
                       <Col xs={2} style={{ textAlign: "center" }}>
-                        <Image src={proj.imagePath} />
+                        <FontAwesomeIcon icon={faHardHat} style={{color:"#E5B829"}}/>
                       </Col>
                       <Col style={{ fontWeight: proj.new ? "bold" : "normal" }}>
                         {proj.name}
