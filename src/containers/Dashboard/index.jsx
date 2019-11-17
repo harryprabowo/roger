@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Tab, Row, Col, Nav, Image, Button } from "react-bootstrap";
+import { Tab, Row, Col, Nav, Button } from "react-bootstrap";
 
 import Detail from "./Detail";
 

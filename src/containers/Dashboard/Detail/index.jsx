@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Form, FormControl, Row, Col, InputGroup, Button, Modal } from "react-bootstrap";
+import AceEditor from "react-ace";
 
-import { Form, FormControl, Row, Col, Image, Button } from "react-bootstrap";
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/theme-monokai";
 
 import "./style.scss";
 
@@ -19,27 +22,39 @@ import {
 import { isNullOrUndefined } from "util";
 
 const apiURL = 'http://localhost:5000/api/chats';
+const addNewCommand = {
+  title: "New Command",
+  keyword: '',
+  code: 'def func_new(msg):\r\n    # What to do with the message?\r\n    pass'
+};
+
 const commands = [
   [
     {
       name: "emergency",
       title: "Emergency",
       icon: faAmbulance,
-      list: ["Call an ambulance", "Forecast hazard"]
+      list: ["Call an ambulance", "Forecast hazard"],
+      keyword: 'darurat',
+      code: 'def func_emergency(msg):\r\n    TWILIO_PHONE_NUMBER = "+12055516176"\r\n    DIAL_NUMBER = "+6282245754436"\r\n\r\n    print(\'[Emergency Module] Emergency status is set, calling\', DIAL_NUMBER)\r\n    client = Client("AC1a71fde45cddebd964fbfc0fbe380079",\r\n                    "e3b51eb7145b1dd1a0945fe66b867e6f")\r\n\r\n    if re.search(\'pendarahan\', msg, re.I):\r\n        inst_url = "https://ashura.id/roger/pendarahan_dalam.xml"\r\n    else:\r\n        inst_url = "https://ashura.id/roger/jatuh_5_meter.xml"\r\n\r\n    client.calls.create(to=DIAL_NUMBER, from_=TWILIO_PHONE_NUMBER,\r\n                        url=inst_url, method="GET")\r\n\r\n    emergency_chat = Chat(message=msg, category=\'emergency\')\r\n    db.session.add(emergency_chat)\r\n    db.session.commit()\r\n\r\n    playsound(\'responses/emergency.mp3\')'
     },
 
     {
       name: "report",
       title: "Progress Report",
       icon: faTasks,
-      list: []
+      list: [],
+      keyword: 'lapor',
+      code: 'def func_report(msg):\r\n    print(\'[Report Module] Logged:\', msg)\r\n\r\n    chat = Chat(message=msg, category=\'report\')\r\n    db.session.add(chat)\r\n    db.session.commit()'
     },
 
     {
       name: "announcement",
       title: "Announcement",
       icon: faBell,
-      list: []
+      list: [],
+      keyword: '',
+      code: 'def func_announce(msg):\r\n    pass'
     }
   ]
 ];
@@ -65,6 +80,58 @@ const chatRes = [
   }
 ];
 
+const CodeModal = (props) => {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      animation={false}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          {props.cmd.title}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <InputGroup className="mb-3">
+          <InputGroup.Prepend>
+            <InputGroup.Text id="basic-addon1">Keyword</InputGroup.Text>
+          </InputGroup.Prepend>
+          <FormControl
+            value={props.cmd.keyword}
+            placeholder="Word/s Roger will affliate the function with"
+            aria-label="regex"
+            aria-describedby="basic-addon1"
+          />
+        </InputGroup>
+        <AceEditor
+          style={{ width: '100%' }}
+          mode="python"
+          theme="monokai"
+          name="blah2"
+          fontSize={14}
+          showPrintMargin={true}
+          showGutter={true}
+          highlightActiveLine={true}
+          value={props.cmd.code}
+          setOptions={{
+            enableBasicAutocompletion: false,
+            enableLiveAutocompletion: false,
+            enableSnippets: false,
+            showLineNumbers: true,
+            tabSize: 2,
+          }} />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="danger" onClick={props.onHide}>Discard</Button>
+        <Button onClick={props.onHide}>Save</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
 const CommandCard = props => {
   const { cmd, selectCategory } = props;
 
@@ -85,7 +152,7 @@ const CommandCard = props => {
         </Col>
         <Col>
           <strong style={{ marginRight: "1rem" }}>{cmd.title}</strong>
-          <Button variant="link" style={{ padding: 0, verticalAlign: 'baseline' }} onClick={() => console.log('asdads')}>
+          <Button variant="link" style={{ padding: 0, verticalAlign: 'baseline' }} onClick={() => props.setModalShow(cmd)}>
             <FontAwesomeIcon icon={faEdit} style={{ color: "#aaa" }} size="lg" />
           </Button>
         </Col>
@@ -148,6 +215,7 @@ const Detail = props => {
 
   const [chats, setChats] = useState([]);
   const [selectedCategory, selectCategory] = useState();
+  const [modalShow, setModalShow] = React.useState(false);
 
   useEffect(
     () => {
@@ -167,6 +235,11 @@ const Detail = props => {
 
   return (
     <div id="Detail">
+      <CodeModal
+        show={!!modalShow}
+        cmd={modalShow}
+        onHide={() => setModalShow(false)}
+      />
       <Row>
         <Col className="command-list" style={{ padding: "1rem 0" }}>
           <Row>
@@ -176,7 +249,7 @@ const Detail = props => {
               </Form>
             </Col>
             <Col xs={3} style={{ paddingRight: "2rem" }}>
-              <Button variant="light" style={{ borderColor: "grey" }} block>
+              <Button variant="light" style={{ borderColor: "grey" }} block onClick={() => setModalShow(addNewCommand)}>
                 <FontAwesomeIcon icon={faPlus} /> Command
               </Button>
             </Col>
@@ -191,6 +264,7 @@ const Detail = props => {
                   key={i}
                   cmd={cmd}
                   selectCategory={selectCategory}
+                  setModalShow={setModalShow}
                 />
               ))}
           </div>
