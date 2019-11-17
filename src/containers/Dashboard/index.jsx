@@ -100,7 +100,6 @@ const Dashboard = () => {
             <Tab.Content>
               {projects.map((proj, i) => (
                 <Tab.Pane eventKey={proj.id} key={i}>
-                    zxcvasdfalsdfaslkdjfa;jf;wkdjfa;jdf;ajfoeai
                   {proj.id === activeTab ? <Detail proj={proj} /> : null}
                 </Tab.Pane>
               ))}
