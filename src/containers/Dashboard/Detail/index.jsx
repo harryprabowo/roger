@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Form, FormControl, Row, Col, Image, Button } from "react-bootstrap";
 
 import "./style.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronUp, faChevronDown, faCog } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronUp,
+  faChevronDown,
+  faCog
+} from "@fortawesome/free-solid-svg-icons";
 
 import { isNullOrUndefined } from "util";
 
@@ -24,6 +28,27 @@ const commands = [
   ]
 ];
 
+const chatRes = [
+  {
+    category: "emergency",
+    date_time: "23:38",
+    from_roger: false,
+    message: "Hai Roger situasi darurat tolong"
+  },
+  {
+    category: "log",
+    date_time: "23:46",
+    from_roger: true,
+    message: "Hai Roger ke air raja"
+  },
+  {
+    category: "log",
+    date_time: "23:46",
+    from_roger: false,
+    message: " Hai rojer ada pendarahan di sektor 5 darurat"
+  }
+];
+
 const CommandCard = props => {
   const { cmd } = props;
 
@@ -32,7 +57,7 @@ const CommandCard = props => {
   return (
     <div className="card">
       <Row>
-        <Col xs={1}>
+        <Col xs={1} style={{textAlign:'center'}}>
           <Image src={cmd.imagePath} />
         </Col>
         <Col>
@@ -44,7 +69,7 @@ const CommandCard = props => {
         <Col
           xs={1}
           onClick={() => setOpen(!open)}
-          style={{ color: "lightgrey", cursor: "pointer" }}
+          style={{ color: "grey", cursor: "pointer" }}
         >
           {open ? (
             <FontAwesomeIcon
@@ -74,8 +99,31 @@ const CommandCard = props => {
   );
 };
 
+const Chat = props => {
+    const { chat } = props
+
+    return (
+        <div className="chat-bubble">
+            <Row>
+                <Col>
+                    {chat.message}
+                </Col>
+                <Col xs={3} style={{alignSelf: 'flex-end'}}>
+                    <label style={{fontSize: '8pt'}}>{chat.date_time}</label>
+                </Col>
+            </Row>
+        </div>   
+    )
+};
+
 const Detail = props => {
   const { proj } = props;
+  
+  const [chats, setChats] = useState([]);
+
+  setInterval(() => {
+    setChats(chatRes);
+  }, 1000);
 
   return (
     <div id="Detail">
@@ -85,15 +133,31 @@ const Detail = props => {
             <FormControl type="text" placeholder="Search" />
           </Form>
 
-          <hr />
+          <hr style={{ marginBottom: 0 }} />
 
-          {isNullOrUndefined(commands[proj.id - 1])
-            ? null
-            : commands[proj.id - 1].map((cmd, i) => (
-                <CommandCard key={i} cmd={cmd} />
-              ))}
+          <div className="commands">
+            {isNullOrUndefined(commands[proj.id - 1])
+              ? null
+              : commands[proj.id - 1].map((cmd, i) => (
+                  <CommandCard key={i} cmd={cmd} />
+                ))}
+          </div>
         </Col>
-        <Col md={4} className="message-log"></Col>
+        <Col md={4} className="chat-log">
+          <div className="chats">
+              <header style={{textAlign: 'center', margin: '1rem 0'}}>
+                  <strong style={{color: 'grey'}}>CHAT LOG</strong>
+              </header>
+            {chats.map((chat, i) => (
+              <div
+                key={i}
+                className={"chat " + (chat.from_roger ? "chat-roger" : null)}
+              >
+                <Chat chat={chat} />
+              </div>
+            ))}
+          </div>
+        </Col>
       </Row>
     </div>
   );

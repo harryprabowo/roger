@@ -40,18 +40,29 @@ const Dashboard = () => {
         <Tab.Container id="left-tabs">
           <Col sm={3} className="left">
             <header style={{ padding: "0 1rem" }}>
-              <h4 style={{margin: 0}}>
+              <h4 style={{ margin: 0 }}>
                 <strong>ROGER</strong>
                 <Button variant="link">
                   <FontAwesomeIcon
                     icon={faCaretDown}
-                    style={{ verticalAlign: "text-top", color: "white", fontSize: '14pt', opacity: 0.8 }}
+                    style={{
+                      verticalAlign: "text-top",
+                      color: "white",
+                      fontSize: "14pt",
+                      opacity: 0.8
+                    }}
                   />
                 </Button>
               </h4>
-              <span style={{fontSize: '10pt'}}>
-                  <FontAwesomeIcon icon={faCircle} style={{color:'green'}} size="sm"/>
-                  <label style={{marginLeft: '1rem', opacity: 0.8}}>BUSINESS HOURS</label>
+              <span style={{ fontSize: "10pt" }}>
+                <FontAwesomeIcon
+                  icon={faCircle}
+                  style={{ color: "green" }}
+                  size="sm"
+                />
+                <label style={{ marginLeft: "1rem", opacity: 0.8 }}>
+                  BUSINESS HOURS
+                </label>
               </span>
             </header>
             <hr />
