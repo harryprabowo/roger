@@ -12,7 +12,8 @@ import {
   faArrowLeft,
   faAmbulance,
   faTasks,
-  faEdit
+  faEdit,
+  faBell
 } from "@fortawesome/free-solid-svg-icons";
 
 import { isNullOrUndefined } from "util";
@@ -30,6 +31,13 @@ const commands = [
       name: "report",
       title: "Progress Report",
       icon: faTasks,
+      list: []
+    },
+
+    {
+      name: "announcement",
+      title: "Announcement",
+      icon: faBell,
       list: []
     }
   ]
