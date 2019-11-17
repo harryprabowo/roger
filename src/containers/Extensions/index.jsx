@@ -13,31 +13,31 @@ const categories = [
   {
     id: 1,
     name: "Productivity",
-    extensions: ["a", "b", "c"]
+    extensions: ["Worker Attendance", "Task Management Integrator", "Scheduled Announcement"]
   },
 
   {
     id: 2,
     name: "Warehouse & Inventory",
-    extensions: ["c", "b", "c"]
+    extensions: ["Warehouse Monitoring", "Ask for Material", "Automatic Resupply"]
   },
 
   {
     id: 3,
     name: "Safety & Emergency",
-    extensions: ["a", "b", "c"]
+    extensions: ["Damkar", "Police"]
   },
 
   {
     id: 4,
     name: "Transportation",
-    extensions: ["a", "b", "c"]
+    extensions: ["Transportation Request", "Heavy Transportation Request", "Shipment Status"]
   },
 
   {
     id: 5,
     name: "Security & Ronda",
-    extensions: ["a", "b", "c"]
+    extensions: ["Security Alert", "CCTV Integration Tool"]
   }
 ];
 
