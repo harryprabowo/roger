@@ -8,7 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronUp,
   faChevronDown,
-  faCog
+  faCog,
+  faPlus
 } from "@fortawesome/free-solid-svg-icons";
 
 import { isNullOrUndefined } from "util";
@@ -55,15 +56,15 @@ const CommandCard = props => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="card">
+    <div className={"card " + (open ? " card-open" : null)}>
       <Row>
         <Col xs={1} style={{textAlign:'center'}}>
           <Image src={cmd.imagePath} />
         </Col>
         <Col>
-          <strong>{cmd.title}</strong>
-          <Button size="sm" variant="link">
-            <FontAwesomeIcon icon={faCog} style={{ color: "grey" }} />
+          <strong style={{marginRight: '1rem'}}>{cmd.title}</strong>
+          <Button size="sm" variant="light" style={{backgroundColor: 'lightgrey'}}>
+            <FontAwesomeIcon icon={faCog}  />
           </Button>
         </Col>
         <Col
@@ -121,18 +122,42 @@ const Detail = props => {
   
   const [chats, setChats] = useState([]);
 
+  useEffect(
+    () => {
+      let timer1 = setInterval(() => {
+        setChats(chatRes);
+      }, [1000]);
+
+      return () => {
+        clearInterval(timer1);
+      };
+    }
+  );
+
+
+
   setInterval(() => {
     setChats(chatRes);
-  }, 1000);
+    console.log('asdfa')
+    
+  }, [1000]);
 
   return (
     <div id="Detail">
       <Row>
-        <Col className="command-list">
-          <Form>
-            <FormControl type="text" placeholder="Search" />
-          </Form>
-
+        <Col className="command-list" style={{ padding: "1rem 0" }}>
+          <Row>
+            <Col style={{ paddingLeft: '1rem' }}>
+              <Form>
+                <FormControl type="text" placeholder="Search" />
+              </Form>
+            </Col>
+            <Col xs={3} style={{ paddingRight: '2rem' }}>
+              <Button variant="light" style={{borderColor: 'grey'}} block>
+                <FontAwesomeIcon icon={faPlus}/> Command
+              </Button>
+            </Col>
+          </Row>
           <hr style={{ marginBottom: 0 }} />
 
           <div className="commands">
@@ -145,9 +170,11 @@ const Detail = props => {
         </Col>
         <Col md={4} className="chat-log">
           <div className="chats">
-              <header style={{textAlign: 'center', margin: '1rem 0'}}>
-                  <strong style={{color: 'grey'}}>CHAT LOG</strong>
-              </header>
+            <header
+              style={{ textAlign: "center", margin: "1rem 0", color: "grey" }}
+            >
+              <strong style={{ color: "grey" }}>CHAT LOG</strong>
+            </header>
             {chats.map((chat, i) => (
               <div
                 key={i}
